@@ -1,0 +1,33 @@
+services:
+  nym-node:
+    build: 
+      context: .
+    container_name: ${CONTAINER_NAME}
+    environment:
+      - NYM_NODE_ID=${NYM_NODE_ID}
+      - NYM_MODE=${NYM_MODE}
+      - NYM_ACCEPT_TERMS=${NYM_ACCEPT_TERMS}
+      - NYM_PUBLIC_IP=${NYM_PUBLIC_IP}
+      - NYM_HOSTNAME=${NYM_HOSTNAME}
+      - NYM_LOCATION=${NYM_LOCATION}
+    volumes:
+      - nym-data:/nym-data
+    ports:
+      - "1789:1789"
+      - "1790:1790"
+      - "8080:8080"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/api/v1/build-information"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s
+    restart: unless-stopped
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+volumes:
+  nym-data:
