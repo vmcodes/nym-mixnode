@@ -30,19 +30,13 @@ NYM_LOCATION=US
 # Container name
 CONTAINER_NAME=nym-mixnode
 ```
-
-4. **Deploy**
-```bash
-docker compose up -d
-```
-
 ## Local Testing
 
-For local testing, use these values in `.env`:
+For local testing, you must add a country code in `.env`:
 ```bash
 NYM_PUBLIC_IP=127.0.0.1
 NYM_HOSTNAME=localhost
-NYM_LOCATION=local
+NYM_LOCATION=US
 ```
 
 The entrypoint script automatically adds the `--local` flag when using localhost/127.0.0.1.
@@ -56,34 +50,24 @@ NYM_HOSTNAME=mixnode.example.com
 NYM_LOCATION=US
 ```
 
+4. **Deploy**
+```bash
+docker compose up -d
+```
+
 ## Node Description
 
 Set description after initial startup:
 ```bash
-docker exec -it nym-mixnode sh -c 'cat > /nym-data/description.toml << EOF
+cat > ./nym-config/nym-nodes/my-mixnode/data/description.toml << EOF
 moniker = "my-mixnode"
 website = "https://domain.com"
 security_contact = "operator@domain.com"
 details = "Nym mixnode operated by me"
-EOF'
+EOF
 
 docker compose restart nym-node
 ```
-
-## Updates
-
-**Update to new version:**
-1. Edit `NYM_VERSION` in Dockerfile:
-```dockerfile
-ENV NYM_VERSION=v1.14.0
-```
-
-2. Rebuild and deploy:
-```bash
-docker compose build --no-cache
-docker compose up -d
-```
-
 ## Management
 
 **View logs:**
@@ -101,6 +85,8 @@ curl http://localhost:8080/api/v1/description
 ```bash
 docker compose ps
 ```
+
+
 
 **Stop and cleanup:**
 ```bash

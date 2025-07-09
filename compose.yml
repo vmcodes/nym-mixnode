@@ -11,6 +11,7 @@ services:
       - NYM_HOSTNAME=${NYM_HOSTNAME}
       - NYM_LOCATION=${NYM_LOCATION}
     volumes:
+      - ./nym-config:/root/.nym
       - nym-data:/nym-data
     ports:
       - "1789:1789"
