@@ -4,18 +4,7 @@ Containerized Nym mixnode with configurable environment variables and persistent
 
 ## Quick Start
 
-1. **Create project directory**
-```bash
-mkdir nym-docker && cd nym-docker
-```
-
-2. **Create required files**
-   - `Dockerfile` 
-   - `entrypoint.sh`
-   - `docker-compose.yml`
-   - `.env` (customize values below)
-
-3. **Configure .env file**
+1. **Configure .env file**
 ```bash
 # Node Identity
 NYM_NODE_ID=my-mixnode
@@ -50,10 +39,14 @@ NYM_HOSTNAME=mixnode.example.com
 NYM_LOCATION=US
 ```
 
-4. **Deploy**
+2. **Deploy**
 ```bash
 docker compose up -d
 ```
+
+## Data Persistence
+
+Node keys and configuration persist in the `./nym-config` bind mount directory and the `nym-data` Docker volume through updates and restarts. The node configuration and description files are stored in `./nym-config` on your host filesystem for easy access and editing.
 
 ## Node Description
 
@@ -69,6 +62,7 @@ EOF
 
 docker compose restart nym-node
 ```
+
 ## Management
 
 **View logs:**
@@ -87,8 +81,6 @@ curl http://localhost:8080/api/v1/description
 docker compose ps
 ```
 
-
-
 **Stop and cleanup:**
 ```bash
 docker compose down
@@ -100,10 +92,6 @@ docker compose down -v  # Remove volumes too
 - `1789`: Mixnet traffic
 - `1790`: Verloc API  
 - `8080`: HTTP API
-
-## Data Persistence
-
-Node keys and configuration persist in the `nym-data` Docker volume through updates and restarts.
 
 ## Troubleshooting
 
@@ -120,5 +108,6 @@ docker compose logs -f nym-node
 **Reset node data:**
 ```bash
 docker compose down -v
+sudo rm -rf ./nym-config
 docker compose up -d
 ```
