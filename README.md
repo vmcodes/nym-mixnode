@@ -59,7 +59,7 @@ docker compose up -d
 
 Set description after initial startup:
 ```bash
-cat > ./nym-config/nym-nodes/my-mixnode/data/description.toml << EOF
+sudo tee ./nym-config/nym-nodes/my-mixnode/data/description.toml << EOF
 moniker = "my-mixnode"
 website = "https://domain.com"
 security_contact = "operator@domain.com"
