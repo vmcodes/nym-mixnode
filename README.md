@@ -30,7 +30,7 @@ NYM_LOCATION=US
 # Container name
 CONTAINER_NAME=nym-mixnode
 ```
-## Local Testing
+<u>Local Testing</u>
 
 For local testing, you must add a country code in `.env`:
 ```bash
@@ -41,7 +41,7 @@ NYM_LOCATION=US
 
 The entrypoint script automatically adds the `--local` flag when using localhost/127.0.0.1.
 
-## Production Deployment
+<u>Production Deployment</u>
 
 Replace localhost values in `.env` with real server details:
 ```bash
